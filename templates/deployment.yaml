@@ -1,0 +1,28 @@
+{{- if and .Values.myapp.enabled  -}}
+apiVersion: apps/v1
+kind: Deployment
+{{- end }}
+metadata:
+  name: {{.Release.Name}}-app
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}
+    spec:
+      containers:
+      - name: {{.Release.Name}}-myapp
+        image: {{.Values.containers.image}}
+        resources:
+        {{- if $.Values.limits }}
+          limits:
+            memory: {{.Values.limits.memory}}
+            cpu: {{.Values.limits.cpu}}
+        {{- end }}
+        ports:
+        - containerPort: {{.Values.ports.containerPort}}
+       

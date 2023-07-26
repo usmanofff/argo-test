@@ -1,0 +1,14 @@
+containers:
+  image: redis:alpine
+
+replicaCount: 3
+
+limits:
+  memory: "128Mi"
+  cpu: "500m"
+
+ports:
+  containerPort: 80
+
+myapp:
+  enabled: true
